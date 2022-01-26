@@ -1,0 +1,29 @@
+# instantiate the data module config object
+_target_: src.data.modules.LibriSpeechDataModuleConfig
+
+# path to folders containing train, val and test shards
+train_c100_shard_path: ${data_folder}/librispeech_shards/train_clean_100
+train_c360_shard_path: ${data_folder}/librispeech_shards/train_clean_360
+train_o500_shard_path: ${data_folder}/librispeech_shards/train_other_500
+val_clean_shard_path: ${data_folder}/librispeech_shards/dev_clean
+val_other_shard_path: ${data_folder}/librispeech_shards/dev_other
+test_clean_shard_path: ${data_folder}/librispeech_shards/test_clean
+test_other_shard_path: ${data_folder}/librispeech_shards/test_other
+
+# path to json containing the vocabulary
+vocabulary_json_path: ${data_folder}/librispeech_shards/vocabulary.json
+
+# how to collate the data when creating a batch
+# one of `default` (assumes same size)
+train_collate_fn: default
+val_collate_fn: default
+test_collate_fn: default
+
+# whether to keep debug info in data pipeline
+# (which can have serious performance slowdown)
+include_debug_info_in_data_pipeline: false
+
+# train set options"
+# 960h: clean-100, clean-360 and other-500 subsets
+# 100h: clean-100 subset
+train_set: "960h"

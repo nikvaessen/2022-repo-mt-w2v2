@@ -1,0 +1,14 @@
+train_pipeline:
+  - normalizer
+
+val_pipeline:
+  - normalizer
+
+test_pipeline:
+  # assume batch size of 1 due to no selector (and therefore tensors have
+  # different dimensions and cannot be collated without padding
+  - normalizer
+
+normalizer:
+  _target_: src.data.pipeline.input_normalisation.InputNormalizer2D
+  normalize_over_channels: false

@@ -1,0 +1,48 @@
+# @package _global_
+
+defaults:
+  - override /callbacks: mt_early_stopping
+  - override /data: mt_vox2_libri
+  - override /speaker/pipeline: base_wav_chunked
+  - override /speaker/dataloader: speaker
+  - override /speech/dataloader: speech
+  - override /speech/pipeline: base_wav
+  - override /speech/tokenizer: default
+  - override /network: mt_wav2vec2
+  - override /network/regularisation: wav2vec2_none
+  - override /optim/algo: adam
+  - override /optim/schedule: tri_stage
+  - override /optim/loss: mt_speech_speaker_loss
+  - override /trainer: trainer
+
+trainer:
+  max_steps: 100_000
+  precision: 16
+  val_check_interval: 5000
+
+speech:
+  dataloader:
+    train_max_num_samples: 3_200_000
+    num_workers: 1
+
+speaker:
+  dataloader:
+    train_batch_size: 64
+    num_workers: 1
+  pipeline:
+    selector_train:
+      desired_chunk_length_sec: 3
+
+network:
+  use_cosine_linear: true
+  wav2vec_initially_frozen: true
+  num_frozen_steps: 10_000
+
+optim:
+  algo:
+    lr: 2e-5
+  loss:
+    use_cross_entropy: false
+
+project_name: baseline-mt-speech-speaker
+

@@ -1,0 +1,29 @@
+# @package _global_
+
+defaults:
+  - override /callbacks: speech_early_stopping
+  - override /data: librispeech
+  - override /speech/pipeline: base_wav
+  - override /speech/dataloader: speech
+  - override /speech/tokenizer: default
+  - override /network: speech_wav2vec2_fc
+  - override /network/regularisation: wav2vec2_none
+  - override /optim/algo: adam
+  - override /optim/schedule: tri_stage
+  - override /optim/loss: ctc
+  - override /trainer: trainer
+
+trainer:
+  max_steps: 100_000
+  precision: 16
+  val_check_interval: 5_000
+
+project_name: baseline-speech
+
+network:
+  wav2vec_initially_frozen: true
+  num_frozen_steps: 10_000
+
+optim:
+  algo:
+    lr: 1e-4

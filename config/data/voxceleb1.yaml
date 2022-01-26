@@ -1,0 +1,33 @@
+# instantiate the data module config object
+_target_: src.data.modules.VoxCelebDataModuleConfig
+
+# path to folders containing train, val and test shards
+train_shard_path: ${data_folder}/vox1_shards/train
+val_shard_path: ${data_folder}/vox1_shards/val
+test_shard_path: ${data_folder}/vox1_shards/test
+
+# path to text file containing validation trial pairs
+val_trials_path: ${data_folder}/vox1_shards/val_trials.txt
+
+# path to text file containing test trial pairs
+test_trials_path: ${data_folder}/voxceleb_meta/veri_test2.txt
+test_name: o
+
+# how to collate the data when creating a batch
+# one of `default` (assumes same size) or
+# `pad_right` (add 0's so dimensions become equal)
+train_collate_fn: pad_right
+val_collate_fn: pad_right
+test_collate_fn: default
+
+# whether to keep debug info in data pipeline
+# (which can have serious performance slowdown)
+include_debug_info_in_data_pipeline: false
+
+# optional additional test sets
+additional_test_set_paths:
+  - ${data_folder}/vox1_shards/val
+additional_test_set_trials:
+  - ${data_folder}/vox1_shards/val_trials.txt
+additional_test_set_names:
+  - val

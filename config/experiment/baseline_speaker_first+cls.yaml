@@ -1,0 +1,36 @@
+# @package _global_
+
+defaults:
+  - override /callbacks: speaker_early_stopping
+  - override /data: voxceleb2
+  - override /speaker/pipeline: base_wav_chunked
+  - override /speaker/dataloader: speaker
+  - override /network: speaker_wav2vec2_fc
+  - override /network/regularisation: wav2vec2_none
+  - override /optim/algo: adam
+  - override /optim/schedule: tri_stage
+  - override /optim/loss: aam_softmax
+  - override /trainer: trainer
+
+trainer:
+  max_steps: 100_000
+  val_check_interval: 5000
+  precision: 16
+
+network:
+  stat_pooling_type: first+cls
+  wav2vec_initially_frozen: true
+  num_frozen_steps: 10_000
+
+speaker:
+  dataloader:
+    train_batch_size: 66
+  pipeline:
+    selector_train:
+        desired_chunk_length_sec: 3
+
+optiom:
+  algo:
+    lr: 3e-5
+
+project_name: baseline-speaker

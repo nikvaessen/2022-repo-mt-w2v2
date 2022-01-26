@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "w2v2-multitask"
+version = "0.1.0"
+description = ""
+authors = ["Anonymous <anon@anon.anon"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.10"
+webdataset = "0.1.87"
+torch = "1.10"
+torchaudio = "0.10."
+torchvision = "0.11.1"
+pytorch-lightning = "1.5.4"
+yaspin = "2.1.0"
+omegaconf = "2.1.1"
+python-dotenv = "0.19.1"
+hydra-core = "1.1.1"
+jiwer = "^2.3.0"
+transformers = "4.12.5"
+pandas = "1.3.4"
+scikit-learn = "1.0.1"
+psutil = "5.8.0"
+"hurry.filesize" = "0.9"
+seaborn = "0.11.2"
+matplotlib = "3.4.3"
+librosa = "0.8.1"
+speechbrain = "0.5.10"
+scipy = "1.7.1"
+pytorch-model-summary = "0.1.2"
+hydra-submitit-launcher = "1.1.6"
+datasets = "^1.15.1"
+wandb = "^0.12.9"
+plotly = "^5.5.0"
+jupyterlab = "^3.2.5"
+kaleido = "0.2.1"
+torchviz = "^0.0.2"
+jupyter = "^1.0.0"
+
+[tool.poetry.dev-dependencies]
+black = "21.9b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,10 @@
+# instantiate the config object
+_target_: src.data.loading_config.SpeechDataLoaderConfig
+
+# settings for data loader
+train_max_num_samples: 3_200_000  # a batch consists of at most 171 seconds of audio
+max_queue_size: 400
+val_batch_size: 8
+test_batch_size: 1
+num_workers: 5
+pin_memory: true

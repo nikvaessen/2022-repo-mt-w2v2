@@ -1,0 +1,78 @@
+# instantiate the data module config object
+_target_: src.data.modules.JointLibrispeechVoxcelebDataModuleConfig
+
+ls_cfg:
+  # instantiate the data module config object
+  _target_: src.data.modules.LibriSpeechDataModuleConfig
+
+  # path to folders containing train, val and test shards
+  train_c100_shard_path: ${data_folder}/librispeech_shards/train_clean_100
+  train_c360_shard_path: ${data_folder}/librispeech_shards/train_clean_360
+  train_o500_shard_path: ${data_folder}/librispeech_shards/train_other_500
+  val_clean_shard_path: ${data_folder}/librispeech_shards/dev_clean
+  val_other_shard_path: ${data_folder}/librispeech_shards/dev_other
+  test_clean_shard_path: ${data_folder}/librispeech_shards/test_clean
+  test_other_shard_path: ${data_folder}/librispeech_shards/test_other
+
+  # path to json containing the vocabulary
+  vocabulary_json_path: ${data_folder}/librispeech_shards/vocabulary.json
+
+  # how to collate the data when creating a batch
+  # one of `default` (assumes same size)
+  train_collate_fn: default
+  val_collate_fn: default
+  test_collate_fn: default
+
+  # whether to keep debug info in data pipeline
+  # (which can have serious performance slowdown)
+  include_debug_info_in_data_pipeline: false
+
+  # train set options"
+  # 960h: clean-100, clean-360 and other-500 subsets
+  # 100h: clean-100 subset
+  train_set: "960h"
+
+# voxceleb config
+vc_cfg:
+  # instantiate the data module config object
+  _target_: src.data.modules.VoxCelebDataModuleConfig
+
+  # path to folders containing train, val and test shards
+  train_shard_path: ${data_folder}/vox2_shards/train
+  val_shard_path: ${data_folder}/vox2_shards/val
+  test_shard_path: ${data_folder}/vox2_shards/test
+
+  # path to text file containing validation trial pairs
+  val_trials_path: ${data_folder}/vox2_shards/val_trials.txt
+
+  # path to text file containing test trial pairs
+  test_trials_path: ${data_folder}/voxceleb_meta/veri_test2.txt
+  test_name: o
+
+  # how to collate the data when creating a batch
+  # one of `default` (assumes same size) or
+  # `pad_right` (add 0's so dimensions become equal)
+  train_collate_fn: pad_right
+  val_collate_fn: pad_right
+  test_collate_fn: default
+
+  # whether to keep debug info in data pipeline
+  # (which can have serious performance slowdown)
+  include_debug_info_in_data_pipeline: false
+
+  # optional additional test sets
+  additional_test_set_paths:
+    - ${data_folder}/vox2_shards/val
+    - ${data_folder}/vox2_shards_all/test
+    - ${data_folder}/vox2_shards_hard/test
+  additional_test_set_trials:
+    - ${data_folder}/vox2_shards/val_trials.txt
+    - ${data_folder}/voxceleb_meta/list_test_all2.txt
+    - ${data_folder}/voxceleb_meta/list_test_hard2.txt
+  additional_test_set_names:
+    - val
+    - e
+    - h
+
+test_voxceleb: true
+test_librispeech: true
